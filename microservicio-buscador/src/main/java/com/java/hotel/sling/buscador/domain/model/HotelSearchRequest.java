@@ -1,0 +1,11 @@
+package com.java.hotel.sling.buscador.domain.model;
+
+import java.time.LocalDate;
+import java.util.List;
+
+public record HotelSearchRequest(
+    String hotelId,
+    LocalDate checkIn,
+    LocalDate checkOut,
+    List<Integer> ages
+) {}
