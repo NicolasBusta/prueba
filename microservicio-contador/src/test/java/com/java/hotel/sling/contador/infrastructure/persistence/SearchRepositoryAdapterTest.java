@@ -1,7 +1,6 @@
 package com.java.hotel.sling.contador.infrastructure.persistence;
 
 import com.java.hotel.sling.contador.domain.model.HotelSearchMessage;
-import com.java.hotel.sling.contador.domain.model.SearchAvailabilityEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -94,6 +93,6 @@ class SearchRepositoryAdapterTest {
 
         long count = searchRepositoryAdapter.countSimilarSearches(message);
 
-        assertEquals(2L, count);
+        assertEquals(1L, count); // Only entity1 [30, 29] exactly matches message [30, 29]
     }
 }

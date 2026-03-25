@@ -61,7 +61,7 @@ class CountServiceTest {
     }
 
     @Test
-    void getCountBySearchId_validSearch_returnsSortedAges() {
+    void getCountBySearchId_validSearch_returnsOriginalAgesOrder() {
         String searchId = "test-search-id";
         HotelSearchMessage message = new HotelSearchMessage(
             searchId,
@@ -76,7 +76,7 @@ class CountServiceTest {
 
         CountResponse response = countService.getCountBySearchId(searchId);
 
-        assertEquals(List.of(1, 3, 29, 30), response.search().ages());
+        assertEquals(List.of(30, 29, 1, 3), response.search().ages());
     }
 
     @Test

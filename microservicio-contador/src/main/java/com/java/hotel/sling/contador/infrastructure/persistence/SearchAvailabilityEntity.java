@@ -1,4 +1,4 @@
-package com.java.hotel.sling.contador.domain.model;
+package com.java.hotel.sling.contador.infrastructure.persistence;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;

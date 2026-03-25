@@ -7,7 +7,6 @@ import com.java.hotel.sling.contador.domain.port.out.SearchRepositoryPort;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CountService implements CountUseCase {
 
@@ -27,15 +26,15 @@ public class CountService implements CountUseCase {
 
         long count = repositoryPort.countSimilarSearches(referenceSearch);
 
-        List<Integer> sortedAges = referenceSearch.ages() != null
-                ? referenceSearch.ages().stream().sorted().collect(Collectors.toList())
+        List<Integer> agesList = referenceSearch.ages() != null
+                ? referenceSearch.ages()
                 : Collections.emptyList();
 
         CountResponse.SearchDetail detail = new CountResponse.SearchDetail(
                 referenceSearch.hotelId(),
                 referenceSearch.checkIn().toString(),
                 referenceSearch.checkOut().toString(),
-                sortedAges);
+                agesList);
 
         return new CountResponse(searchId, detail, count);
     }
