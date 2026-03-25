@@ -36,21 +36,17 @@ public class SearchRepositoryAdapter implements SearchRepositoryPort {
 
     @Override
     public long countSimilarSearches(HotelSearchMessage message) {
-        List<SearchAvailabilityEntity> allSearches = jpaRepository.findAll();
+        String agesString = message.ages() != null
+                ? message.ages().stream()
+                        .map(String::valueOf)
+                        .collect(Collectors.joining(","))
+                : "";
 
-        List<Integer> agesList = message.ages() != null
-                ? message.ages()
-                : Collections.emptyList();
-
-        return allSearches.stream()
-                .filter(entity -> entity.getHotelId().equals(message.hotelId()))
-                .filter(entity -> entity.getCheckIn().equals(message.checkIn()))
-                .filter(entity -> entity.getCheckOut().equals(message.checkOut()))
-                .filter(entity -> {
-                    List<Integer> entityAges = parseAgesList(entity.getAges());
-                    return entityAges.equals(agesList);
-                })
-                .count();
+        return jpaRepository.countSimilar(
+                message.hotelId(),
+                message.checkIn(),
+                message.checkOut(),
+                agesString);
     }
 
     @Override
