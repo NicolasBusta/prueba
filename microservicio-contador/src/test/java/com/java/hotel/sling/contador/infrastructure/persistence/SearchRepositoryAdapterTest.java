@@ -84,15 +84,15 @@ class SearchRepositoryAdapterTest {
                 LocalDate.of(2023, 12, 31),
                 List.of(30, 29));
 
-        SearchAvailabilityEntity entity1 = new SearchAvailabilityEntity(
-                "id1", "1234aBc", LocalDate.of(2023, 12, 29), LocalDate.of(2023, 12, 31), "30,29");
-        SearchAvailabilityEntity entity2 = new SearchAvailabilityEntity(
-                "id2", "1234aBc", LocalDate.of(2023, 12, 29), LocalDate.of(2023, 12, 31), "29,30");
-
-        when(jpaRepository.findAll()).thenReturn(List.of(entity1, entity2));
+        when(jpaRepository.countSimilar(
+                eq("1234aBc"),
+                eq(LocalDate.of(2023, 12, 29)),
+                eq(LocalDate.of(2023, 12, 31)),
+                eq("30,29")))
+                .thenReturn(1L);
 
         long count = searchRepositoryAdapter.countSimilarSearches(message);
 
-        assertEquals(1L, count); // Only entity1 [30, 29] exactly matches message [30, 29]
+        assertEquals(1L, count);
     }
 }
